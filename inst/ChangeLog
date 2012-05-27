@@ -2,7 +2,48 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-15 (opened April 24, 2012)
+Version 2.1-16 (opened May 11, 2012)
+
+	* .checkSelect: standardise those plotting functions that have a
+	'select' argument that controls which rows of the scores are
+	plotted. All these functions now use .checkSelect() to check and
+	apply 'select' as appropriate.
+
+	* ordipointlabel: gains argument 'select' which allows some rows
+	of the plotted scores to be skipped in the same manner as for
+	text.cca(). This only applies when a single set of scores is
+	plotted. Otherwise it is ignored and a warning issued.
+
+	* ordihull, ordiellipse: defaults to use semitransparent fill
+	colour with 'draw = "polygon"', and gain argument 'alpha' to set
+	the transparency.
+
+	* ordihull: gained explicit 'col' argument and adds labels after
+	drawing convex hulls so that filled hulls (with 'draw = "polygon")
+	do not cover labels. With these changes, the behaviour of
+	ordihull() is similar to ordiellipse(). The labels are centred
+	more correctly.
+
+	* metaMDS: A warning is issued on too good stress (zero or nearly
+	zero).  This is often a symptom of insufficient data.  In general,
+	you need n > 2*k + 1 points for k dimensions, and Kruskal's advice
+	is to have n > 4*k + 1.  With low number of points there can be
+	several complete (zero stress) but different results, and no two
+	convergent solution can be found.  The warning is issued also when
+	convergence was obtained, and information on dimensions is
+	printed.  FAQ gained an entry on the issue.
+
+	* bioenv: accepts now dissimilarities or a square matrix that can
+	interpred as dissimilarities instead of a community data frame.
+	This allows using other dissimilarities than those in vegdist(). 
+
+	* update.nullmodel: explicit assignment is required to update
+	the input object (nm <- update(nm, ...)).
+
+	* ordiplot3d: the returned envfit.convert() function did not
+	recognize 'choices'.
+
+Version 2.1-15 (closed May 11, 2012)
 
 	* rrarefy, drarefy: check the data are integers -- the functions
 	do not give sensible results with real values.
@@ -15,6 +56,13 @@ Version 2.1-15 (opened April 24, 2012)
 	metaMDS. With over-defined models there is an infinite number of
 	different solutions with nearly zero stress, and no convergence is
 	found. 
+
+	* ordiplot3d: function returns the projected coordinates of the
+	origin, and function envfit.convert() that can project a
+	three-dimensional envfit() result to the current plot. Unlike
+	originally assumed, the function will not set equal aspect ratio
+	for all axes.  We try to compensate this by setting equal scaling
+	to all axes.
 	
 Version 2.1-14 (opened March 9, 2012)
 
