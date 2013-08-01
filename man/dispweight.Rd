@@ -5,12 +5,22 @@
 
 \description{Transform abundance data using dispersion-based weighting of species counts}
 
-\usage{dispweight(comm, group, nperm = 1000)}
+\usage{
+  dispweight(comm, group, nperm = 1000)
+  dispweight2(comm, groups, nperm = 999, nullmodel = "c0_ind2",
+      plimit = 0.05, ...)
+}
+
 
 \arguments{
   \item{comm}{Community data matrix.}
-  \item{group}{Factor describing the group structure.}
+  \item{group, groups}{Factor describing the group structure.}
   \item{nperm}{Number of permutations.}
+  \item{nullmodel}{The \code{\link{nullmodel}} used in
+    \code{\link{make.commsim}} within \code{groups}. The default
+    follows Clarke et al. (2006). }
+  \item{plimit}{Downweight species if their \eqn{p}-value is at or
+     below this limit. } 
 }
 
 \details{
@@ -38,10 +48,11 @@ A list of class \code{dispweight} with the following items:
 \references{
 Clarke, K. R., M. G. Chapman, P. J. Somerfield, and H. R. Needham. 2006. Dispersion-based Weighting of Species Counts in Assemblage Analyses. \emph{Marine Ecology Progress Series}, 320, 11–27.
 }
-\author{
-  Eduard Szöcs \email{szoe8822@uni-landau.de}
-}
 
+\author{ 
+  Eduard Szöcs \email{szoe8822@uni-landau.de} and Jari Oksanen
+  (\code{dispweight2}).
+}
 
 \examples{
 data(dune)
