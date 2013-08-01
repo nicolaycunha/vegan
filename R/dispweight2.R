@@ -5,8 +5,10 @@
 ### information are the overdispersion coefficients (D) and p-values;
 ### the weights can be found from these.
 `dispweight2` <-
-    function(comm, groups, nperm = 999, ...)
+    function(comm, groups, nperm = 999, nullmodel = "c0_ind", plimit = 0.05,
+             ...)
 {
+    oldclass <- class(comm)
     ## vegan uses 'groups' (not 'group') in other similar
     ## functions. First remove empty levels
     groups <- factor(groups)
@@ -34,17 +36,19 @@
     }
     simulated <- matrix(0, nrow = ncol(comm), ncol = nperm)
     for (lev in levels(groups)) {
-        nm <- nullmodel(comm[groups == lev,], "c0_ind")
+        nm <- nullmodel(comm[groups == lev,], nullmodel)
         tmp <- apply(simulate(nm, nperm), 3, chisq)
         ok <- !is.na(tmp)
         simulated[ok] <- simulated[ok] + tmp[ok] 
     }
     p <- (rowSums(dhat <= simulated) + 1) / (nperm + 1)
     dhat <- dhat / div
-    w <- ifelse(p <= 0.05, 1/dhat, 1)
+    w <- ifelse(p <= plimit, 1/dhat, 1)
     comm <- sweep(comm, 2, w, "*")
-    out <- list(D = dhat, p = p, weights = w, transformed = comm)
-    class(out) <- "dispweight"
-    out
+    class(comm) <- c("dispweight", class(comm))
+    attr(comm, "D") <- dhat
+    attr(comm, "p") <- p
+    attr(comm, "weights") <- w
+    comm
 }
 
