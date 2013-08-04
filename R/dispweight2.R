@@ -8,7 +8,8 @@
     function(comm, groups, nperm = 999, nullmodel = "c0_ind", plimit = 0.05,
              ...)
 {
-    oldclass <- class(comm)
+    if (missing(groups))
+        groups <- rep(1, nrow(comm))
     ## vegan uses 'groups' (not 'group') in other similar
     ## functions. First remove empty levels
     groups <- factor(groups)
