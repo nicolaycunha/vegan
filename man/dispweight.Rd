@@ -30,7 +30,7 @@
 
 \details{
 Dispersion weighting can be used when there are \emph{a priori} defined groups 
-(eg. lacation of samples). 
+(eg. location of samples). 
 
 The dispersion index (\eqn{D}) is calculated as ratio between 
 variance and mean and averaged across groups. D can then be used as divisor to 
