@@ -53,11 +53,10 @@ on the approximate Chi-square distribution of Pearson residuals.
 }
 
 \value{
-A list of class \code{dispweight} with the following items:
+Functions return transformed data with the following new attributes:
     \item{D}{Average Dispersion index.}
     \item{p}{\eqn{p}-value of permutation test that \eqn{D = 1}.}
     \item{weights}{weights applied to community data.}
-    \item{transformed}{transformed community data.}
 }
 
 \references{
@@ -66,18 +65,17 @@ Clarke, K. R., M. G. Chapman, P. J. Somerfield, and H. R. Needham. 2006. Dispers
 
 \author{ 
   Eduard Szöcs \email{szoe8822@uni-landau.de} and Jari Oksanen
-  (\code{dispweight2}).
+  (\code{dispweight2, 3}).
 }
 
 \examples{
 data(dune)
 data(dune.env)
-# calculate weights
-dpw <- dispweight(dune, dune.env$Management, nperm = 100)
 # transformed community data
-dpw$transformed
+dpw <- dispweight(dune, dune.env$Management, nperm = 100)
 }
 
 
 \keyword{multivariate}
+\keyword{manip}
 
